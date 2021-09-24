@@ -1,4 +1,4 @@
-from six import remove_move
+
 from app import ql
 from flask import request
 
@@ -11,12 +11,14 @@ class Handler(object):
         content = self.msg.split(' ')
         command = content[0]
         args = content[1:]
-        if command == '添加':
+        if command == 'addck':
             return self.new_envs(args)
-        if command == '查看':
+        elif command == 'getck':
             return self.get_envs()
-        if command =='运行':
-            return self.run_corns(args)
+        elif command =='runcron':
+            return self.run_crons(args)
+        elif command == 'getcron':
+            return self.get_crons(args)
         else:
             error = '指令错误'
             return error
@@ -34,13 +36,15 @@ class Handler(object):
             return  str(e)
     def get_envs(self):
         return self.qlapi.get_envs()
-    def run_corns(self,args):
+    def run_crons(self,args):
         if args[0] == "ck":
-            return self.qlapi.run_corns('GVZlQ05o9h2zBknd')
+            id = ['3OP1NFLv3OCt1Gdd']
+            return self.qlapi.run_crons(id)
         else:
-            return self.qlapi.run_corns(args)
+            return self.qlapi.run_crons(args)
 
-
+    def get_crons(self,value=None):
+        return self.qlapi.get_crons(value)
 
 
 

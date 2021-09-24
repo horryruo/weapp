@@ -30,13 +30,14 @@ class QLAPI(object):
             data = res_json['data']
             if name =='JD_COOKIE':
                 text = '成功添加{},cookies={},id为{},稍后推送状态'.format(name,value,data[0]['_id'])
-                run = self.run_corns('GVZlQ05o9h2zBknd')
+                id = ['3OP1NFLv3OCt1Gdd']
+                run = self.run_crons(id)
                 return text
             else:
                 text = '成功添加不是京东ck:{},cookies={},id={},'.format(name,value,data[0]['_id'])
                 return text
         else:
-            error = res_json['message']
+            error = res_json.get('message')
             return error
 
     def get_envs(self):
@@ -49,18 +50,16 @@ class QLAPI(object):
         tb.left_padding_width = 0
         tb.right_padding_width = 0
         #tb.set_style(pt.MSWORD_FRIENDLY)
-        tb.field_names = ["名字", "创建时间", "状态","别名"]
+        tb.field_names = ["名字", "状态","别名"]
         for id in data:
-            tb.add_row([id['name'],id['timestamp'],id['status'],id['remarks']])
+            tb.add_row([id['name'],id['status'],id.get('remarks')])
         tbb = tb.get_string()
         return tbb
         
 
-    def run_corns(self,idlist):
-        data = []
-        data.append(idlist)
-        url = self.host + 'corns/run'
-        res = self.session.put(url, json=data,params={"t":self.time})
+    def run_crons(self,idlist):
+        url = self.host + 'crons/run'
+        res = self.session.put(url, json=idlist,params={"t":self.time})
         res.encoding = 'utf-8'
         res_json = json.loads(res.text)
         stats = str(res_json['code'])
@@ -69,8 +68,14 @@ class QLAPI(object):
             return stats
         else:
             return stats
-
-
+    def get_crons(self,value):
+        url = self.host + 'crons'
+        res = self.session.get(url,params={"t":self.time,"searchValue":value})
+        res.encoding = 'utf-8'
+        res_json = json.loads(res.text)
+        stats = str(res_json['code'])
+        #print(res.text)
+        return res.text
 
 
 
