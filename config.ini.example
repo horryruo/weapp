@@ -1,0 +1,19 @@
+[default]
+type = 1
+secret_key = 
+
+[wechat_corp]
+corp_id = 
+corp_token = 
+corp_aeskey = 
+
+[push]
+corp_secret = 
+corp_agentid
+
+[ql]
+ql_api = false
+ql_host = 127.0.0.1:5700
+ql_client_id = 
+ql_client_secret = 
+ql_token = 
