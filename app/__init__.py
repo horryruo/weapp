@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
-from requests.sessions import session
-from app.demo import oauth
 import functools, configparser
-from flask import request, current_app, abort, redirect
+from flask import request, current_app, abort
 from wechatpy.replies import BaseReply
-from wechatpy.pay import WeChatPay as ori_WeChatPay
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import (
     InvalidSignatureException,
     InvalidAppIdException,
-    WeChatOAuthException,
 )
 class AppConfig(object):
     def __init__(self,app):
