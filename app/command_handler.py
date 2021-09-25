@@ -1,4 +1,5 @@
 
+import re
 from app import ql, get_update
 from flask import request
 
@@ -23,6 +24,16 @@ class Handler(object):
             return self.get_updates(args)
         elif command == 'restart':
             return self.restart()
+        elif command == '你好'or 'hello':
+            return command
+        elif command =='help':
+            helpp = '''帮助\n(空格不能少)
+            添加cookies：addck 名字 内容(京东名字需要为jd)\n
+            查看现有cookies：getck\n
+            运行与查询任务:getcron 搜索内容|runcron 任务id\n
+            更新程序与重启程序:update | restart(受微信限制,重启无消息提醒)\n
+            '''
+            return helpp
         else:
             error = '指令错误'
             return error
@@ -54,7 +65,7 @@ class Handler(object):
         repo = get_update.Version('https://github.com/horryruo/weapp.git')
         if args[:] == []:
             updatetime = repo.get_time()
-            text = '最新版本更新日期：{} (UTC+8)'.format(updatetime)
+            text = '最新版本更新日期：{} (UTC+8),回复update ok确认更新'.format(updatetime)
             return text
         elif args[0]=='ok':
             try:

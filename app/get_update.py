@@ -144,6 +144,6 @@ def restart():
 
 if __name__ == "__main__":
     repo = Version('https://github.com/horryruo/weapp.git')
-    print(repo.branches())
+    print(repo.get_time())
     
     
