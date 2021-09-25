@@ -1,9 +1,8 @@
-
 # encoding: utf-8
-
 from flask import Flask, request, session, render_template
 from app import Wechat, wechat_required,command_handler
-from wechatpy.replies import TextReply,create_reply
+from wechatpy.replies import TextReply
+
 
 
 
@@ -19,8 +18,7 @@ def index():
 
 @app.route('/test')
 def test():
-    
-    return test
+    return 
 
 
 @app.route('/clear')
