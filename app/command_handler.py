@@ -55,6 +55,7 @@ class Handler(object):
         if args[:] == []:
             updatetime = repo.get_time()
             text = '最新版本更新日期：{} (UTC+8)'.format(updatetime)
+            return text
         elif args[0]=='ok':
             try:
                 pull = repo.pull()
