@@ -24,7 +24,7 @@ class Handler(object):
             return self.get_updates(args)
         elif command == 'restart':
             return self.restart()
-        elif command == '你好'or 'hello':
+        elif command == '你好':
             return command
         elif command =='help':
             helpp = '''帮助\n(空格不能少)

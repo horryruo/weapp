@@ -4,3 +4,4 @@ config.ini
 .idea/
 push.bat
 pull.bat
+.history/
