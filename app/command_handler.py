@@ -74,14 +74,16 @@ class Handler(object):
                 pull = str(e)
             print(pull)
             import re
-            matchline = re.search( r'file changed|Already|merge', pull, re.M|re.I).group()
+            matchline = re.search( r'file changed|Already|merge', pull, re.M|re.I)
             #print(matchline)
-            if matchline == 'Already':
-                text = '版本已是最新，无需更新'
-            elif matchline == 'file changed':
-                text = '更新完成，请输入restart 重启程序完成更新'
-            elif matchline == 'merge':
-                text = '你可能修改过项目文件，无法自动更新，请手动解决或重新下载程序'
+            if matchline:
+                matchline=matchline.group()
+                if matchline == 'Already':
+                    text = '版本已是最新，无需更新'
+                elif matchline == 'file changed':
+                    text = '更新完成，请输入restart 重启程序完成更新'
+                elif matchline == 'merge':
+                    text = '你可能修改过项目文件，无法自动更新，请手动解决或重新下载程序'
             else:
                 text = str(pull)
             return text
