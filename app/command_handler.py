@@ -5,9 +5,9 @@ from flask import request
 
 
 class Handler(object):
-    def __init__(self):
+    def __init__(self, app=None):
         self.msg = request.wechat_msg.content
-        self.qlapi = ql.QLAPI()
+        self.qlapi = ql.QLAPI(app)
     def command(self):
         content = self.msg.split(' ')
         command = content[0]

@@ -22,6 +22,8 @@ class AppConfig(object):
             app.config['QL_HOST'] = config['ql']['ql_host']
             Client_ID = config['ql']['ql_client_id']
             Client_Secret = config['ql']['ql_client_secret']
+            app.config['Client_ID'] = Client_ID
+            app.config['Client_Secret'] = Client_Secret
             app.config['QL_TOKEN'] = self.ql_token(config['ql']['ql_token'],Client_ID,Client_Secret,config['ql']['ql_host'],config)
         secret_key = config['default']['secret_key']
         if secret_key == '':

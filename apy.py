@@ -44,7 +44,7 @@ def wechat_vanilla():
 def wechat_chocolate():
     msg = request.wechat_msg
     print(msg)
-    handler = command_handler.Handler()
+    handler = command_handler.Handler(app)
     try:
         text = str(handler.command())
     except Exception as e:

@@ -4,15 +4,34 @@ import prettytable as pt
 
 
 class QLAPI(object):
-    def __init__(self):
+    def __init__(self, app=None):
+        self.token = self.api_token(current_app.config['QL_TOKEN'],app)
         self.host = 'http://{}/open/'.format(current_app.config['QL_HOST'])
         headers = {
-            'Authorization': 'Bearer %s'%current_app.config['QL_TOKEN'],
+            'Authorization': 'Bearer %s'%self.token,
             'Content-Type': 'application/json;charset=UTF-8',
             }
         self.session = requests.session()
         self.session.headers.update(headers)
         self.time = round(time.time() * 1000)
+    
+    def api_token(self,token, app=None):
+        headers = {
+            'Authorization': 'Bearer %s'%token,
+            'Content-Type': 'application/json;charset=UTF-8',
+            }
+        token_url = 'http://{}/open/auth/token?client_id={}&client_secret={}'.format(current_app.config['QL_HOST'],current_app.config['Client_ID'],current_app.config['Client_Secret'])
+        oauth_url = 'http://%s/open/envs'%current_app.config['QL_HOST']
+        res = requests.get(oauth_url,headers=headers)
+        stats = str(json.loads(res.text).get('code'))
+        if stats=='200':
+            return token
+        else:
+            res = requests.get(token_url)
+            token = json.loads(res.text).get('data').get('token')
+            app.config['QL_TOKEN'] = token
+            print(token)
+            return token
 
     def new_envs(self,name,value,remarks=None):
         if name == 'jd':
